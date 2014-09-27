@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Memory</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_my">MyActivity</string>
+    <string name="titre_popup_gagne">Félicitations</string>
+    <string name="message_popup_gagne">Félicitations vous avez gagné !</string>
+    <string name="boutton_ok">Ok</string>
+</resources>
