@@ -4,27 +4,25 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import android.os.Handler;
 
 public class EcranMemoryActivity extends Activity {
 
-    private static final int NOMBRE_D_EMPLACEMENTS=4;
-    private static final int IMAGE_DOS=R.drawable.dos2;
+    private static final int NOMBRE_D_EMPLACEMENTS = 4;
+    private static final int IMAGE_DOS = R.drawable.dos2;
 
     private ImageView[] listeEmplacements = new ImageView[NOMBRE_D_EMPLACEMENTS];
-    private List<Carte> listeCarte= new ArrayList<Carte>();
+    private List<Carte> listeCarte = new ArrayList<Carte>();
     private Carte carteRetournee = null;
-    private int numeroEmplacementCarteRetournee=0;
-    private List<Carte> carteGagnee=new ArrayList<Carte>();
+    private int numeroEmplacementCarteRetournee = 0;
+    private List<Carte> carteGagnee = new ArrayList<Carte>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,15 +32,15 @@ public class EcranMemoryActivity extends Activity {
         initierLePlateauDeJeu();
     }
 
-    private void initierLePlateauDeJeu(){
+    private void initierLePlateauDeJeu() {
 
-        listeEmplacements[0]=(ImageView)findViewById(R.id.emplacement1View);
+        listeEmplacements[0] = (ImageView) findViewById(R.id.emplacement1View);
         listeEmplacements[0].setOnClickListener(quandJeToucheLEmplacement(0));
-        listeEmplacements[1]=(ImageView)findViewById(R.id.emplacement2View);
+        listeEmplacements[1] = (ImageView) findViewById(R.id.emplacement2View);
         listeEmplacements[1].setOnClickListener(quandJeToucheLEmplacement(1));
-        listeEmplacements[2]=(ImageView)findViewById(R.id.emplacement3View);
+        listeEmplacements[2] = (ImageView) findViewById(R.id.emplacement3View);
         listeEmplacements[2].setOnClickListener(quandJeToucheLEmplacement(2));
-        listeEmplacements[3]=(ImageView)findViewById(R.id.emplacement4View);
+        listeEmplacements[3] = (ImageView) findViewById(R.id.emplacement4View);
         listeEmplacements[3].setOnClickListener(quandJeToucheLEmplacement(3));
 
         Carte carte1 = new Carte(R.drawable.robot1);
@@ -60,35 +58,31 @@ public class EcranMemoryActivity extends Activity {
             @Override
             public void onClick(View v) {
                 final Carte carteTouchee = listeCarte.get(numeroEmplacement);
-                if(carteTouchee.estCoteFace){
-                    trace("Carte de face touchee à la place "+numeroEmplacement+" on ne fait rien");
-                    //carteTouchee.estCoteFace=false;
-                    //listeEmplacements[numeroEmplacement].setImageResource(R.drawable.dos2);
-                }
-                else
-                {
-                    trace("Carte de dos touchee à la place"+numeroEmplacement);
-                    carteTouchee.estCoteFace=true;
-                    listeEmplacements[numeroEmplacement].setImageResource(carteTouchee.imageDeFace);
+                if (carteTouchee.estCoteFace()) {
+                    trace("Carte de face touchee à la place " + numeroEmplacement + " on ne fait rien");
+                } else {
+                    trace("Carte de dos touchee à la place" + numeroEmplacement);
+                    carteTouchee.revelerCarte();
+                    listeEmplacements[numeroEmplacement].setImageResource(carteTouchee.getImageDeFace());
                     trace("timer...");
 
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         public void run() {
-                            if(carteRetournee!=null){
+                            if (carteRetournee != null) {
                                 trace("Il y a une carte retournee avant celle là, il faut verifier si c'est la meme carte");
 
-                                if(carteRetournee.imageDeFace == carteTouchee.imageDeFace){
+                                if (carteRetournee.getImageDeFace() == carteTouchee.getImageDeFace()) {
                                     trace("c'est une paire, on garde les deux cartes retournees");
                                     listeEmplacements[numeroEmplacement].setAlpha(0.5f);
                                     listeEmplacements[numeroEmplacementCarteRetournee].setAlpha(0.5f);
                                     carteGagnee.add(carteTouchee);
                                     carteGagnee.add(carteRetournee);
 
-                                    carteRetournee=null;
+                                    carteRetournee = null;
 
                                     //On regarde si le jeu est fini, c'est a dire si toutes les cartes sont retournees
-                                    if(carteGagnee.size()==NOMBRE_D_EMPLACEMENTS){
+                                    if (carteGagnee.size() == NOMBRE_D_EMPLACEMENTS) {
                                         trace("Gagné !");
                                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                                         builder.setMessage(R.string.message_popup_gagne)
@@ -110,19 +104,15 @@ public class EcranMemoryActivity extends Activity {
                                         dialog.show();
                                     }
 
-                                }
-                                else
-                                {
+                                } else {
                                     trace("Les deux cartes sont differentes, on les retourne");
-                                    carteRetournee.estCoteFace=false;
-                                    carteTouchee.estCoteFace=false;
+                                    carteRetournee.cacherCarte();
+                                    carteTouchee.cacherCarte();
                                     listeEmplacements[numeroEmplacement].setImageResource(IMAGE_DOS);
                                     listeEmplacements[numeroEmplacementCarteRetournee].setImageResource(IMAGE_DOS);
-                                    carteRetournee=null;
+                                    carteRetournee = null;
                                 }
-                            }
-                            else
-                            { //Sauvegarde de la carte retournee pour le prochain touch
+                            } else { //Sauvegarde de la carte retournee pour le prochain touch
                                 trace("carte retournee sauvegardee");
                                 numeroEmplacementCarteRetournee = numeroEmplacement;
                                 carteRetournee = carteTouchee;
@@ -137,31 +127,32 @@ public class EcranMemoryActivity extends Activity {
     }
 
 
-    private void melangerLesCartes(){
+    private void melangerLesCartes() {
         Collections.shuffle(listeCarte);
     }
 
-    private void relancerLeJeu(){
-        for(Carte uneCarte: listeCarte){
-            uneCarte.estCoteFace= false;
+    private void relancerLeJeu() {
+        for (Carte uneCarte : listeCarte) {
+            uneCarte.cacherCarte();
         }
 
-        for(ImageView emplacement: listeEmplacements){
+        for (ImageView emplacement : listeEmplacements) {
             emplacement.setAlpha(1.0f);
             emplacement.setImageResource(IMAGE_DOS);
         }
 
         carteGagnee.clear();
         carteRetournee = null;
-        numeroEmplacementCarteRetournee=0;
+        numeroEmplacementCarteRetournee = 0;
     }
 
 
-    private Activity getActivity(){
+    private Activity getActivity() {
         return this;
     }
 
-    private void trace(String log){
+    private void trace(String log) {
         Log.d("MEMORY", log);
     }
+
 }
