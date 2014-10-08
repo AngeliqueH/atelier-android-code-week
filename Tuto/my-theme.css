@@ -2,3 +2,18 @@ body
 {
 	margin: 3em;
 }
+
+.rem
+{
+	background-color: #ddf;
+	padding: 2px;
+	border-radius: 5px;
+	font-style: italic;
+}
+
+hr
+{
+	color: #ddd;
+	background-color: #ddd;
+	height: 3px;
+}

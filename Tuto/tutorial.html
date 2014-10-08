@@ -11,26 +11,47 @@
 <body>
 	<h1>Tutorial Atelier Android</h1>
 
+	<hr/>
 	<h2>Installations</h2>
 
 	<ol>
-		<li>Installer Virtual box: VirtualBox-4.3.12-93733-Win.exe</li>
+		<li>Installer Virtual box: <strong>VirtualBox-4.3.12-93733-Win.exe</strong></li>
 		<li>Si l'installation demande de redémarrer, redémarrer.</li>
-		<li>Double cliquer sur Mint32.ova : ça lance une machine virtuelle</li>
+		<li>Double cliquer sur <strong>Mint32.ova</strong> : ça lance une machine virtuelle</li>
 		<li>Une fois le système d'exploitation lancé, le mot de passe est "angie"</li>
 	</ol>
+ 
+	<div class="rem"><strong>Remarque:</strong> la machine virtuelle simule un nouveau système d'exploitation sur votre ordinateur. Elle vous permet d'avoir quasiment aucune installation à faire pour démarrer. Par contre le défaut c'est que ça risque de "ramer" un peu.</div>
 
 	<h2>Lancements</h2>
 	<ol>
-		<li>Sur le bureau, double cliquer sur [TODO icone] pour lancer </li>
-		<li>Attendez la fin du lancement de l'emulateur de téléphone</li>
-		<li>Sur le bureau, double cliqur sur [TODO img] pour lancer l'interface de développement</li>
-		<li>Une fois l'interface lancée, cliquez sur [TODO img] pour lancer l'application Android sur le telephone</li>
+		<li>Sur le bureau, double cliquer sur <img src="img/icone_emulateur.png"> pour lancer l'émulateur</li>
+		<li><strong>Attendez la fin du lancement</strong> de l'emulateur de téléphone jusqu'à l'écran permettant de déverouiller ci-contre:
+		<img style="width:20em" src="img/emulateur_screenlock.png">
+		</li>
+		<li>Sur le bureau, double cliquer sur  <img src="img/icone_studio.png"> pour lancer l'interface de développement</li>
+
+		<li>Une fois l'interface lancée, cliquez sur la flèche verte pour lancer l'application Android sur le telephone
+
+			<img src="img/lancer_projet.png"/>
+		</li>
 	</ol>
 
-	<em>Remarque: l'emulateur de téléphone étant assez long a se lancer, il est conseillé de ne pas le fermer.</em>
+	<p>Vous êtes prêt a développer !</p>
+
+	<pre>Remarque: l'emulateur de téléphone étant assez long a se lancer, il est conseillé de ne pas le fermer. Si vous souhaitez utiliser un téléphone Android, vous pouvez vous rendre en fin de tutorial et suivre la procédure détaillée.</pre>
 
 	<h2>Description de l'environnement de développement</h2>
+
+	<img src="img/tour_studio.png">
+
+	<ol>
+		<li>Lancement de l'application Android sur l'émulateur. L'émulateur ne passe pas au premier plan, pensez à changer de fenetre pour voir le résultat (alt+tab)</li>
+		<li>Explorateur du projet: cette partie vous permet de naviguer parmi l'ensemble des fichiers composant le projet. Un double click permet d'ouvrir un fichier dans la zone principale (3).</li>
+		<li>La zone principale: c'est ici que vous allez écrire des lignes de code ou modifier l'interface graphique de votre application.</li>
+	</ol>
+
+	<pre>Remarque: si vous êtes sur un PC/Mac portable et que votre écran vous semble petit, vous pouvez double cliquer sur l'onglet pour afficher l'éditeur de code / devue en pleine page (et re-double cliquer pour revenir à la vue normale)</pre>
 
 	<h2>Atelier</h2>
 
@@ -39,15 +60,89 @@
 	Vous avez a disposition un squelette d'un jeu de mémory: c'est un jeu ou l'on retourne les cartes 2 par 2 et ou il faut retrouver les paires. Une fois toutes les paires trouvées, c'est gagné.
 	<br/>
 
-	<h3>Ajouter deux cartes</h3>
+	<hr/>
+	<h3>1ère étape: Ajouter deux cartes</h3>
+	Ouvrir Memory &gt; app &gt; src &gt; main &gt; res &gt; layout &gt; <strong>activity_ecran_memory.xml</strong>
+	<img src="img/editeur_graph.png">
 
-	<h3>Ajouter la regle du jeu</h3>
-	<p>La premiere carte retounée, doit rester retournée jusqu'a ce qu'une deuxieme carte soit retournée. Lorsque les deux cartes sont sur retounée, si elles sont identiques alors il faut les garder de face, sinon il faut les remettre de dos.
+	<h4>Description de l'éditeur:</h4>
 
-		Le joueur a gagné lorsque toutes les cartes sont du coté face.</p>
+	<ol>
+		<li>Elements de mise en page: permettent de positionner les différents éléments graphiques (boutons, images...etc)</li>
+		<li>Elements graphiques: images, boutons, textes..etc</li>
+		<li>Vue graphique/vue texte: l'interface graphique Android est fait basée sur un fichier texte, l'écran "Design" permet de créer l'interface graphique en glissant/dépossant les composants graphiques: le fichier texte détaillant l'interface graphique est généré. Il est possible de modifier directement ce fichier texte dans l'onglet "Text".</li>
+		<li>Arborescence des éléments: la vue graphique fonctionne avec un système de container: une vue principale et composée de plusieurs sous-vues....etc.</li>
+		<li>Propriété de l'élément graphique sélectionné: chaque composant a des propriétés, comme la taille, la couleur, l'image de fond...etc</li>
+	</ol>
 
-	<h3>Score</h3>
-	<p>Temps mis pour retourner toutes les cartes</p>
+	<h4>Ajout des cartes pas à pas:</h4>
+	<ol>
+		<li>Dans la palette, chercher l'element "Linear layout (Horizontal)"</li>
+		<li>Le glisser sur le "linear Layout (vertical)" dans l'arborescence des éléments
+			<img src="img/glisser_linear_layout.png">
+			<br/>
+			<br/>Vous devez obtenir:
+			<img src="img/resultat_linear_layout.png">
+
+		</li>
+		<li>Glisser 2 image view dans le line layout que vous venez d'ajouter</li>
+		<li>Ajouter les space, les </li>
+		<li>Renommer les id des 2 imageView et mettre width="100 dip"  height="100 dip"</li>
+		<li>Dans le linear layout, ajouter gravity "center_horizontal"; et changer "fill_parent" par "wrap_content"</li>
+		<li>Sur les imageView, dans src mettre "@drawable/dos2"</li>
+
+	</ol>
+
+	<h4>Voici ce que vous devez obtenir en vue Design</h4>
+	<img src="img/resultat_ajout_vues.png">
+
+	<h4>Voici ce que vous devez obtenir en vue Text</h4>
+<pre>
+&lt;Space
+    android:layout_width="20px"
+    android:layout_height="20px" /&gt;
+
+&lt;LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"&gt;
+
+    &lt;ImageView
+        android:layout_width="100dip"
+        android:layout_height="100dip"
+        android:id="@+id/emplacement5View"
+        android:src="@drawable/dos2" /&gt;
+
+    &lt;Space
+        android:layout_width="20px"
+        android:layout_height="20px" /&gt;
+
+    &lt;ImageView
+        android:layout_width="100dip"
+        android:layout_height="100dip"
+        android:id="@+id/emplacement6View"
+        android:src="@drawable/dos2" /&gt;
+	&lt;/LinearLayout&gt;
+</pre>
+
+	<hr/>
+	<h3>2ème étape: Changer les images des cartes</h3>
+
+	<hr/>
+	<h3>3ème étape: Ajouter un compteur de coup</h3>
+
+	<hr/>
+	<h3>4ème étape: Afficher des scores dans un autre écran</h3>
+
+	<hr/>
+	<h3>5ème étape: 2 joueurs avec score au coup par coup</h3>
 
 	</p>
+
+
+	<hr/>
+	<hr/>
+	<h1>Annexes</h1>
+
 </body>
