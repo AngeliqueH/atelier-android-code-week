@@ -86,5 +86,33 @@
                 android:src="@drawable/dos2" />
         </LinearLayout>
 
+        <Space
+            android:layout_width="20px"
+            android:layout_height="20px" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="100dip"
+                android:layout_height="100dip"
+                android:id="@+id/emplacement5View"
+                android:src="@drawable/dos2"/>
+
+            <Space
+                android:layout_width="20px"
+                android:layout_height="20px" />
+
+            <ImageView
+                android:layout_width="100dip"
+                android:layout_height="100dip"
+                android:id="@+id/emplacement6View"
+                android:src="@drawable/dos2"/>
+        </LinearLayout>
+
     </LinearLayout>
+
 </FrameLayout>
