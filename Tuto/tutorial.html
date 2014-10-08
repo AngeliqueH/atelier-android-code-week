@@ -126,23 +126,130 @@
 	&lt;/LinearLayout&gt;
 </pre>
 
-	<hr/>
-	<h3>2ème étape: Changer les images des cartes</h3>
+	<h4>Intégrer les 2 cartes au code</h4>
+	Vous avez modifié l'aspect graphique, il faut maintenant gérer les évènements (clic sur une carte).
+
+	Pour ce faire, ouvrir Memory &gt; app &gt; src &gt; main &gt; java &gt; com.atelier.angie.Memory &gt; <strong>EcranMemoryActivity</strong>
+
+	<h4>Quelques bases de code Java</h4>
+
+	<ul>
+		<li>Les "//" et "/* ... */" sont des commentaires: ces lignes ne seront pas executées.</li>
+		<li>L'ordinateur n'aime pas les accents, les caractères spéciaux et les espaces: vous pouvez nommer vos objets en français, mais unPeuCommeCa.</li>
+		<li>Les accolades { et } permettent de définir des blocks: c'est a dire un ensemble d'instructions qui seront executé les unes à la suite des autres.</li>
+		<li>Dans le fichier vous avez un block qui engloble l'ensemble:
+<pre>
+	public class EcranMemoryActivity extends Activity {
+	...
+	}
+</pre>
+
+	puis des sous-block appelés aussi méthodes, par exemple:
+<pre>
+	protected void onCreate(Bundle savedInstanceState) {
+        ...
+    }
+
+    private void initierLePlateauDeJeu(){
+    ...
+	}
+</pre>
+		</li>
+		<li>On peut appeller une méthode dans une autre méthode: le programme va éxécuter les lignes avant la méthode, puis les lignes de la méthode appelée à l'intérieur, puis les lignes après la méthode.</li>
+		<li>Il y a des blocks un peu spéciaux:
+			<ul><li>if = si: permet de faire des conditions, "si tu ne mange pas tes haricots, alors je ne te donne pas de glace"
+<pre>if(carteGagnee.size()==NOMBRE_D_EMPLACEMENTS){
+    trace("Gagné !");
+    afficherPopupGagne();
+}
+
+Si le nombre de cartes retournées coté face est égale au nombre d'emplacement sur le jeu, alors toutes les cartes sont retournées, donc c'est gagné.
+</pre>
+
+			</li>
+				<li>for = pour: pour faire una action identique pour un ensemble d'élément: "pour toutes les cartes de mon tableau, les tourner"
+<pre>for(ImageView emplacement: listeEmplacements){
+	emplacement.setAlpha(1.0f);
+	emplacement.setImageResource(IMAGE_DOS);
+}
+
+Pour toutes les images des emplacements, mettre de la transparence, et afficher le dos de la carte.
+</pre>
+				</li>
+			</ul>
+		</li>
+
+	</ul>
+
+	<h4>Ajout des cartes dans le code, pas à pas</h4>
+	<ol>
+		<li>Indiquer qu'il y a maintenant 6 cartes:
+<pre>private static final int NOMBRE_D_EMPLACEMENTS=<span class="change">6</span>;</pre>
+		</li>
+
+		<li>Indiquer les images qui ont été ajouté au layout qui correspondent à ces emplacements. Attention, <strong>l'ordinateur commence à compter à partir de 0</strong> et l'être humain commence à 1, c'est pour ça qu'il y a un léger décalage entre l'id de l'image et sont numéro d'emplacement dans le code.
+<pre>
+private void initierLePlateauDeJeu(){
+
+//Lien avec les composants graphiques de la vue activity_ecran_memory.xml
+//Les 4 cases sont enregistrées dans une liste et le click sur la case est écouté.
+listeEmplacements[0]=(ImageView)findViewById(R.id.emplacement1View);
+listeEmplacements[0].setOnClickListener(quandJeToucheLEmplacement(0));
+listeEmplacements[1]=(ImageView)findViewById(R.id.emplacement2View);
+listeEmplacements[1].setOnClickListener(quandJeToucheLEmplacement(1));
+listeEmplacements[2]=(ImageView)findViewById(R.id.emplacement3View);
+listeEmplacements[2].setOnClickListener(quandJeToucheLEmplacement(2));
+listeEmplacements[3]=(ImageView)findViewById(R.id.emplacement4View);
+listeEmplacements[3].setOnClickListener(quandJeToucheLEmplacement(3));
+
+<span class="change">listeEmplacements[4]=(ImageView)findViewById(R.id.emplacement5View);
+listeEmplacements[4].setOnClickListener(quandJeToucheLEmplacement(4));
+listeEmplacements[5]=(ImageView)findViewById(R.id.emplacement6View);
+listeEmplacements[5].setOnClickListener(quandJeToucheLEmplacement(5));</span>
+</pre>
+		</li>
+		<li>Choisir la face de carte supplémentaire, et ajouter les 2 cartes crées à la liste de carte.
+<pre>//Création des cartes qui seront ensuite distribuées sur les emplacements
+Carte carte1 = new Carte(R.drawable.robot1);
+Carte carte2 = new Carte(R.drawable.robot2);
+Carte carte3 = new Carte(R.drawable.robot1);
+Carte carte4 = new Carte(R.drawable.robot2);
+<span class="change">Carte carte5 = new Carte(R.drawable.robot3);
+Carte carte6 = new Carte(R.drawable.robot3);</span>
+
+listeCarte.add(carte1);
+listeCarte.add(carte2);
+listeCarte.add(carte3);
+listeCarte.add(carte4);
+<span class="change">listeCarte.add(carte5);
+listeCarte.add(carte6);</span>
+</pre>
+		</li>Testez, ça devrait marcher !</li>
+	</ol>
 
 	<hr/>
+	<h1>Pour aller plus loin</h1>
+	Vous êtes arrivé jusqu'ici: félicitations ! Voici maintenant quelques idées pour aller plus loin dans votre découverte.
+
+	<h3>2ème étape: Changer les images des cartes</h3>
+	Changez les images de face des cartes, ainsi que l'image de dos.
+	<div class="rem">Les images utilisées dans l'application sont dans le dossier src/main/res/drawable; attention a nommer les images sans accent et sans espace !</div>
+	<hr/>
 	<h3>3ème étape: Ajouter un compteur de coup</h3>
+	Ajoutez sur l'écran, une zone de texte dans laquelle vous comptez le nombre de cartes retournées pour gagner.
 
 	<hr/>
 	<h3>4ème étape: Afficher des scores dans un autre écran</h3>
+	Ajoutez une nouvelle vue, c'est à dire un layout xml + une classe Activity, dans laquelle vous affichez les scores obtenus.
 
 	<hr/>
 	<h3>5ème étape: 2 joueurs avec score au coup par coup</h3>
-
-	</p>
 
 
 	<hr/>
 	<hr/>
 	<h1>Annexes</h1>
+
+	<h3>Utiliser un téléphone Android pour tester</h3>
 
 </body>

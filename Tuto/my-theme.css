@@ -17,3 +17,9 @@ hr
 	background-color: #ddd;
 	height: 3px;
 }
+
+span.change
+{
+	color: #e44;
+	font-weight: bold;
+}
