@@ -1,9 +1,10 @@
 atelier-android-code-week
 =========================
+Ce depot contient les sources du projet Android utilisé comme base pour la soirée de découverte d'Android à l'occasion de la semaine du Code.
+Le projet est en version avec la première étape corrigée.
 
-Contenu de l'atelier Android pour la Code Week
 
-TODO list pour le tuto
+Etapes du tuto
 =========================
 - [ ] Ajouter 2 cartes
 - [ ] Changement de style de carte
@@ -13,10 +14,6 @@ TODO list pour le tuto
 - [ ] Plusieurs joueurs en coup par coup (avec 2 scores affichés)
 - [ ] Grille configurable
 
-Anexes
+Annexes
 ======
 - [ ] Tester sur un vrai téléphone
-
-TODO list dév:
-==============
-- [ ] ajouter une icone pour l'appli
